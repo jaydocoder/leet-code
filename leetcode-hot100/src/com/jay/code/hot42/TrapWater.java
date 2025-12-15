@@ -32,17 +32,21 @@ public class TrapWater {
         }
         return ans;
     }
-
-    public static void main(String[] args) {
-
-            Random random = new Random();
-            int number = random.nextInt(5)+1;
-
-            int [] height =new int [number];
-            for(int i=0;i<number;i++){
-                height[i]=random.nextInt(50)+1;
+    public static int trap2(int[] height) {
+        int ans = 0;
+        int left = 0, right = height.length - 1;
+        int leftMax = 0, rightMax = 0;
+        while (left < right) {
+            leftMax = Math.max(leftMax, height[left]);
+            rightMax = Math.max(rightMax, height[right]);
+            if (height[left] < height[right]) {
+                ans += leftMax - height[left];
+                ++left;
+            } else {
+                ans += rightMax - height[right];
+                --right;
             }
-            System.out.println(Arrays.toString(height));
-            System.out.println(trap(height));
+        }
+        return ans;
     }
 }
